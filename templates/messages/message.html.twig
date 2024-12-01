@@ -20,14 +20,17 @@
         {% if message %}
             <h2 class="no-display">Wiadomość o id: {{ message.getId() }}</h2>
             <div class="container-fluid">
-
                 <div>
                     Nadawca:<br/>
                     {{ message.getName() }}<br/>
                     {{ message.getPesel() }}<br/>
-                    {{ message.getEmail() }}
+                    <a href="mailto:{{ message.getEmail() }}">{{ message.getEmail() }}</a>
                 </div><hr/>
-                {{ message.getContent() }}
+                Wiadomość:
+                <blockquote>
+                    {{ message.getContent() |e }}
+                </blockquote>
+
 
 
             </div>
