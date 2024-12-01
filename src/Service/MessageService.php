@@ -49,10 +49,10 @@ class MessageService
                 // Tutaj powinna być podjęta akcja w przypadku błędu wysłania emaila.
                 // Możemy tutaj usunąć wiadomość z bazy danych i dać znać klientowi że wystapił błąd.
                 // Możemy też dodać pole "wysłane" w bazie danych i cyklicznie ponawiać próby wysłania.
-                throw new \Exception($e->getMessage());
+                throw new \Exception('Podczas wysyłania wiadomości wystąpił problem z wysyłką email.');
             }
         } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
+            throw new \Exception('Podczas wysyłania wiadomości wystąpił problem z bazą danych.');
         }
     }
 

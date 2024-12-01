@@ -33,7 +33,7 @@ class ContactController extends AbstractController
                 $messageService->addNewMessage($message);
                 $this->addFlash('success', 'Twoja wiadomość została wysłana poprawnie!');
             } catch (\Exception $e) {
-                $this->addFlash('danger', 'Podczas wysyłania Twojej wiadomości wystąpił błąd!');
+                $this->addFlash('danger', $e->getMessage());
             }
 
             return $this->redirectToRoute('contact');
