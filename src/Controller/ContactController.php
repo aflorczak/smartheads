@@ -12,6 +12,8 @@ class ContactController extends AbstractController
     #[Route('/kontakt', name: 'contact')]
     public function contact(): Response
     {
-        return $this->render('contact/index.html.twig');
+        return $this->render('contact/index.html.twig', [
+            'title' => 'Kontakt | Smartheads - Aplikacja rekrutacyjna'
+        ]);
     }
 }
