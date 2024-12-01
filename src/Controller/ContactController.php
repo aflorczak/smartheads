@@ -23,8 +23,6 @@ class ContactController extends AbstractController
         $form = $this->createForm(MessageFormType::class, $message);
         $form->handleRequest($request);
 
-        // ZROBIĆ WALIDACJE DANYCH WEJŚCIOWYCH
-
         if ($form->isSubmitted() && $form->isValid()) {
             $form->get('name')->getData();
             $form->get('pesel')->getData();
@@ -35,7 +33,6 @@ class ContactController extends AbstractController
                 $messageService->addNewMessage($message);
                 $this->addFlash('success', 'Twoja wiadomość została wysłana poprawnie!');
             } catch (\Exception $e) {
-                // tutaj treść błędu powinna lądować w logach
                 $this->addFlash('danger', 'Podczas wysyłania Twojej wiadomości wystąpił błąd!');
             }
 
