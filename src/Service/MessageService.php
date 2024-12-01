@@ -52,7 +52,7 @@ class MessageService
                 throw new \Exception('Podczas wysyłania wiadomości wystąpił problem z wysyłką email.');
             }
         } catch (\Exception $e) {
-            throw new \Exception('Podczas wysyłania wiadomości wystąpił problem z bazą danych.');
+            throw new \Exception($e->getMessage());
         }
     }
 
