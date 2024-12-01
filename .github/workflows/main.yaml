@@ -1,0 +1,92 @@
+name: dHosting -> Deploy Smartheads Project
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, intl, pdo_mysql
+
+      - name: Set environment variables
+        env:
+          APP_ENV: prod
+          APP_SECRET: ${{ secrets.APP_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          MESSENGER_TRANSPORT_DSN: ${{ secrets.MESSENGER_TRANSPORT_DSN }}
+          MAILER_DSN: ${{ secrets.MAILER_DSN }}
+        run: |
+          echo "APP_ENV=prod" >> $GITHUB_ENV
+          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> $GITHUB_ENV
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> $GITHUB_ENV
+          echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> $GITHUB_ENV
+          echo "MAILER_DSN=${{ secrets.MAILER_DSN }}" >> $GITHUB_ENV
+
+      - name: Update Composer
+        run: composer self-update
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
+
+      - name: Build assets
+        run: npm install && npm run build
+
+      - name: Install sshpass
+        run: sudo apt-get install sshpass
+
+      - name: Create project zip
+        run: zip -r project.zip .
+
+      - name: Check directory contents
+        run: ls -la
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy project to server using scp
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -P ${{ secrets.SSH_PORT }} project.zip ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app
+
+      - name: Extract and deploy on server
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} << 'EOF'
+            export APP_ENV=prod
+            export APP_SECRET=${{ secrets.APP_SECRET }}
+            export DATABASE_URL=${{ secrets.DATABASE_URL }}
+            export MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}
+            export MAILER_DSN=${{ secrets.MAILER_DSN }}
+            cd /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app
+            unzip -o project.zip -d /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app
+            rm -rf var/cache
+            cd /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl
+            ln -sf app/public/ public_html
+            cd /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app
+            rm project.zip
+            php81 ../composer.phar install --no-dev --no-interaction --optimize-autoloader
+            php81 bin/console doctrine:migrations:migrate --no-interaction
+            cd /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app/public
+            echo 'SetEnv APP_ENV prod' >> .htaccess
+            echo 'SetEnv APP_SECRET ${{ secrets.APP_SECRET }}' >> .htaccess
+            echo 'SetEnv DATABASE_URL ${{ secrets.DATABASE_URL }}' >> .htaccess
+            echo 'SetEnv MESSENGER_TRANSPORT_DSN ${{ secrets.MESSENGER_TRANSPORT_DSN }}' >> .htaccess
+            echo 'SetEnv MAILER_DSN ${{ secrets.MAILER_DSN }}' >> .htaccess
+            cd /home/klient.dhosting.pl/adrianf/apkarekrutacyjna.pl/app
+            php81 bin/console cache:clear
+            php81 bin/console cache:warmup
+          EOF
