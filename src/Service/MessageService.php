@@ -26,7 +26,7 @@ class MessageService
     {
         $email = (new Email())
             ->from('no-reply@apkarekrutacyjna.pl')
-            ->to('adrian.florczak92@gmail.com')
+            ->to('biuro@smartheads.pl')
             ->subject('Nowa wiadomość | apkarekrutacyjna.pl')
             ->html(
                 'Nadawca<br/>'.
