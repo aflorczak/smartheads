@@ -12,6 +12,26 @@
             <div class="text-center custom-header">
                 Formularz kontaktowy
             </div>
+            {{ form_start(messageForm) }}
+                {{ form_row(messageForm.name, {
+                    label: 'Imię'
+                }) }}
+                {{ form_row(messageForm.pesel, {
+                    label: 'Pesel'
+                }) }}
+                {{ form_row(messageForm.email, {
+                    label: 'Email'
+                }) }}
+                {{ form_row(messageForm.content, {
+                    label: 'Treść wiadomości'
+                }) }}
+
+                <div class="text-center buttons-wrapper">
+                    <button type="submit" class="btn btn-success">Wyślij</button><br/>
+                    <button type="reset" class="btn btn-sm btn-danger">Wyczyść formularz</button>
+                </div>
+
+            {{ form_end(messageForm) }}
             <form>
                 <div class="mb-3">
                     <label for="firstName" class="form-label">Imie</label>
