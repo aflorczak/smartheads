@@ -6,6 +6,12 @@
 {% endblock %}
 
 {% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
     <section>
         <h2 class="no-display">Powitanie</h2>
         <div class="container-fluid">
