@@ -6,12 +6,18 @@
 {% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <h2 class="no-display">Breadcrumbs</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Formularz kontaktowy</li>
+            </ol>
+        </nav>
+    </div>
     <section>
         <h2 class="no-display">Formularz kontaktowy</h2>
         <div class="container-fluid">
-            <div class="text-center custom-header">
-                Formularz kontaktowy
-            </div>
 
             {% for label, messages in app.flashes %}
                 <div class="alert alert-{{ label }}">

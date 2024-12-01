@@ -6,13 +6,20 @@
 {#{% endblock %}#}
 
 {% block body %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <h2 class="no-display">Breadcrumbs</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ path('messages') }}">Lista wiadomości</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Wiadomość o id: {{ message.getId() }}</li>
+            </ol>
+        </nav>
+    </div>
     <section>
         {% if message %}
             <h2 class="no-display">Wiadomość o id: {{ message.getId() }}</h2>
             <div class="container-fluid">
-                <div class="text-center custom-header">
-                    Wiadomość o id: {{ message.getId() }}
-                </div>
 
                 <div>
                     Nadawca:<br/>

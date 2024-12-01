@@ -3,21 +3,31 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <h2 class="no-display">Breadcrumbs</h2>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Rejestracja</li>
+            </ol>
+        </nav>
+    </div>
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+    <section>
+        <div class="container-fluid">
+            <h2 class="no-display">Formularz rejestracji użytkownika</h2>
+            {{ form_errors(registrationForm) }}
 
-    <h1>Zarejestruj się</h1>
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Hasło'
+            }) }}
 
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Hasło'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Zarejestruj się</button>
-    {{ form_end(registrationForm) }}
+            <button type="submit" class="btn btn-success">Zarejestruj się</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </section>
 {% endblock %}

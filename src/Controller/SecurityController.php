@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', [
-            'title' => 'Zaloguj się | Smartheads - Aplikacja rekrutacyjna',
+            'title' => 'Logowanie | Smartheads - Aplikacja rekrutacyjna',
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
