@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{#{% block stylesheets %}#}
+{#    {{ parent() }}#}
+{#    {{ encore_entry_link_tags('contact') }}#}
+{#{% endblock %}#}
+
+{% block body %}
+    <section>
+        {% if message %}
+            <h2 class="no-display">Wiadomość o id: {{ message.getId() }}</h2>
+            <div class="container-fluid">
+                <div class="text-center custom-header">
+                    Wiadomość o id: {{ message.getId() }}
+                </div>
+
+                <div>
+                    Nadawca:<br/>
+                    {{ message.getName() }}<br/>
+                    {{ message.getPesel() }}<br/>
+                    {{ message.getEmail() }}
+                </div><hr/>
+                {{ message.getContent() }}
+
+
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                <h2 class="no-display">404 Not Found ;)</h2>
+                <div class="container-fluid">
+                    <div class="text-center custom-header">
+                        Nie znaleziono wiadomości.<br/>
+                        Zrobić przekierowanie do 404 custom page.
+                    </div>
+
+
+
+                </div>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{#{% block javascripts %}#}
+{#    {{ parent() }}#}
+{#    {{ encore_entry_script_tags('contact') }}#}
+{#{% endblock %}#}
