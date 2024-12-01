@@ -16,8 +16,15 @@ class MessageService
 
     public function addNewMessage(Message $message): void
     {
-        $this->messageRepository->save($message);
-        // jeżeli zapisze się do bazy prawidłowo to wysłać e-maila na biuro@smartheads.pl z treścią
+        try {
+            $this->messageRepository->save($message);
+            // jeżeli zapisze się do bazy prawidłowo to wysłać e-maila na biuro@smartheads.pl z treścią
+            // jak nie wysle to też try catch i usunąć z bazy danych może ?
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+
     }
 
     public function getAllMessages(): array

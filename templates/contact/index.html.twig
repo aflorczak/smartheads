@@ -12,19 +12,82 @@
             <div class="text-center custom-header">
                 Formularz kontaktowy
             </div>
+
+            {% for label, messages in app.flashes %}
+                <div class="alert alert-{{ label }}">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
             {{ form_start(messageForm) }}
-                {{ form_row(messageForm.name, {
-                    label: 'Imię'
-                }) }}
-                {{ form_row(messageForm.pesel, {
-                    label: 'Pesel'
-                }) }}
-                {{ form_row(messageForm.email, {
-                    label: 'Email'
-                }) }}
-                {{ form_row(messageForm.content, {
-                    label: 'Treść wiadomości'
-                }) }}
+                <div class="mb-3">
+                    {{ form_row(messageForm.name, {
+                        label: 'Imię',
+                        label_attr: {
+                            for: 'firstName',
+                            class: 'form-label'
+                        },
+                        attr: {
+                            placeholder: 'Stefan',
+                            id: 'firstName',
+                            class: 'form-control',
+                            type: 'text',
+                            required: true
+                        }
+                    }) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(messageForm.pesel, {
+                        label: 'Pesel',
+                        label_attr: {
+                            for: 'pesel',
+                            class: 'form-label'
+                        },
+                        attr: {
+                            placeholder: '95112102417',
+                            id: 'pesel',
+                            class: 'form-control',
+                            type: 'text',
+                            required: true
+                        }
+                    }) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(messageForm.email, {
+                        label: 'E-mail',
+                        label_attr: {
+                            for: 'email',
+                            class: 'form-label'
+                        },
+                        attr: {
+                            placeholder: 'stefan.konewka@ogrodnicze.info',
+                            id: 'email',
+                            class: 'form-control',
+                            type: 'email',
+                            required: true
+                        }
+                    }) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_row(messageForm.content, {
+                        label: 'Treść wiadomości',
+                        label_attr: {
+                            for: 'message',
+                            class: 'form-label'
+                        },
+                        attr: {
+                            placeholder: 'Treść wiadomości',
+                            id: 'messagev',
+                            class: 'form-control',
+                            required: true
+                        }
+                    }) }}
+                </div>
 
                 <div class="text-center buttons-wrapper">
                     <button type="submit" class="btn btn-success">Wyślij</button><br/>
@@ -32,28 +95,6 @@
                 </div>
 
             {{ form_end(messageForm) }}
-            <form>
-                <div class="mb-3">
-                    <label for="firstName" class="form-label">Imie</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Stefan" required>
-                </div>
-                <div class="mb-3">
-                    <label for="pesel" class="form-label">Pesel</label>
-                    <input type="text" class="form-control" id="pesel" placeholder="95112102417" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="stefan.konewka@ogrodnicze.info" required>
-                </div>
-                <div class="mb-3">
-                    <label for="message" class="form-label">Treść wiadomości</label>
-                    <textarea id="message" class="form-control" placeholder="Treść wiadomości" required></textarea>
-                </div>
-                <div class="text-center buttons-wrapper">
-                    <button type="submit" class="btn btn-success">Wyślij</button><br/>
-                    <button type="reset" class="btn btn-sm btn-danger">Wyczyść formularz</button>
-                </div>
-            </form>
         </div>
     </section>
 {% endblock %}

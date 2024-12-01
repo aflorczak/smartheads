@@ -23,18 +23,23 @@ class ContactController extends AbstractController
         $form = $this->createForm(MessageFormType::class, $message);
         $form->handleRequest($request);
 
-        // zaraz zrobić walidację
-//        if ($form->isSubmitted() && $form->isValid()) {
-        if ($form->isSubmitted()) {
+        // ZROBIĆ WALIDACJE DANYCH WEJŚCIOWYCH
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $form->get('name')->getData();
             $form->get('pesel')->getData();
             $form->get('email')->getData();
             $form->get('content')->getData();
 
-            $messageService->addNewMessage($message);
+            try {
+                $messageService->addNewMessage($message);
+                $this->addFlash('success', 'Twoja wiadomość została wysłana poprawnie!');
+            } catch (\Exception $e) {
+                // tutaj treść błędu powinna lądować w logach
+                $this->addFlash('danger', 'Podczas wysyłania Twojej wiadomości wystąpił błąd!');
+            }
 
-            // tutaj zrobić flush że ok poszło wszystko
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('contact');
         }
 
 

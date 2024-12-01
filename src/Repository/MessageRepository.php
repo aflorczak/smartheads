@@ -23,9 +23,14 @@ class MessageRepository extends ServiceEntityRepository
         $this->entityManager = $entityManager;
     }
 
-    public function save(Message $message): void {
-        $this->entityManager->persist($message);
-        $this->entityManager->flush();
+    public function save(Message $message): Message {
+        try {
+            $this->entityManager->persist($message);
+            $this->entityManager->flush();
+            return $message;
+        } catch (\Exception $exception) {
+            throw new \Exception($exception->getMessage());
+        }
     }
 
     //    /**
