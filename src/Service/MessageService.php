@@ -32,7 +32,7 @@ class MessageService
         return $this->messageRepository->findAll();
     }
 
-    public function getMessageById(int $id): Message
+    public function getMessageById(int $id): Message|null
     {
         return $this->messageRepository->find($id);
     }
