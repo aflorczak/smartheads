@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Smartheads - Aplikacja rekrutacyjna
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="no-display">
+        Smartheads - Aplikacja rekrutacyjna
+    </h1>
+    <section>
+        <h2 class="no-display">Powitanie</h2>
+        <div class="container-fluid">
+            <p>
+                Dzień dobry,<br/>
+                zapraszam do zapoznania się z moją aplikacją rekrutacyjną.
+            </p>
+        </div>
+    </section>
+    <section>
+        <h2 class="no-display">GitHub</h2>
+        <div class="container-fluid">
+            <p>
+                Link do repozytorium:
+                <a href="https://github.com/aflorczak/smartheads" target="_blank">
+                    https://github.com/aflorczak/smartheads
+                </a>
+            </p>
+        </div>
+    </section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <section>
+                    <h2 class="no-display">Formularz kontaktowy</h2>
+                    <div>
+                        <a href="{{ path('contact') }}">Skontaktuj się z nami poprzez formularz kontaktowy</a>
+                    </div>
+                </section>
+            </div>
+            <div class="col">
+                <section>
+                    <h2 class="no-display">Podgląd formularzy kontaktowych</h2>
+                    <div>
+                        <a href="">
+                            Wyświetl formularze kontaktowe zapisane w bazie danych.<br/>
+                            ( Wymagane uwierzytelnienie )
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('home') }}
+{% endblock %}
