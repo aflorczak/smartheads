@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Kontakt | Smartheads - Aplikacja rekrutacyjna
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('contact') }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="no-display">
+        Kontakt | Smartheads - Aplikacja rekrutacyjna
+    </h1>
+    <section>
+        <h2 class="no-display">Formularz kontaktowy</h2>
+        <div class="container-fluid">
+            <div class="text-center custom-header">
+                Formularz kontaktowy
+            </div>
+            <form>
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">Imie</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Stefan" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pesel" class="form-label">Pesel</label>
+                    <input type="text" class="form-control" id="pesel" placeholder="95112102417" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="stefan.konewka@ogrodnicze.info" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Treść wiadomości</label>
+                    <textarea id="message" class="form-control" placeholder="Treść wiadomości" required></textarea>
+                </div>
+                <div class="text-center buttons-wrapper">
+                    <button type="submit" class="btn btn-success">Wyślij</button><br/>
+                    <button type="reset" class="btn btn-sm btn-danger">Wyczyść formularz</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('contact') }}
+{% endblock %}
