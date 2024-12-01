@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Service;
+namespace App\Service;
 
 use App\Entity\Message;
 use App\Repository\MessageRepository;
@@ -26,7 +26,7 @@ class MessageService
     {
         $email = (new Email())
             ->from('no-reply@apkarekrutacyjna.pl')
-            ->to('kontakt@adrianflorczak.pl')
+            ->to('adrian.florczak92@gmail.com')
             ->subject('Nowa wiadomość | apkarekrutacyjna.pl')
             ->html(
                 'Nadawca<br/>'.
