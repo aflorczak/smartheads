@@ -20,28 +20,30 @@
         <div class="container-fluid">
 
             {% if messages %}
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Imię</th>
-                        <th scope="col">Pesel</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Akcje</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for message in messages %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <th scope="row">{{ message.id }}</th>
-                            <td>{{ message.name }}</td>
-                            <td>{{ message.pesel }}</td>
-                            <td>{{ message.email }}</td>
-                            <td><a href="{{ path('message', {id: message.id}) }}">Pokaż</a></td>
+                            <th scope="col">#</th>
+                            <th scope="col">Imię</th>
+                            <th scope="col">Pesel</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Akcje</th>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        {% for message in messages %}
+                            <tr>
+                                <th scope="row">{{ message.id }}</th>
+                                <td>{{ message.name }}</td>
+                                <td>{{ message.pesel }}</td>
+                                <td>{{ message.email }}</td>
+                                <td><a href="{{ path('message', {id: message.id}) }}">Pokaż</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             {% else %}
                 <div class="alert alert-warning" role="alert">
                     Brak danych do wyświetlenia
